@@ -22,7 +22,7 @@ ion-toolbar {
         background-repeat: no-repeat;
         background-size: cover;
         .btnss{
-            background-image: linear-gradient(-230deg, #17181a63, #827777) !important;
+            // background-image: linear-gradient(-230deg, #17181a63, #827777) !important;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -67,14 +67,33 @@ ion-toolbar {
             font-size: 1rem;
             color: lightgray;
             padding-left: 10px;
-            padding-top: 10px;
+        }
+        .ratting{
+            font-size: 1rem;
+            padding-left: 10px;
+        }
+        .deliveryAddress{
+            display: flex;
+            padding: 20px 10px 0px 10px;
+            .pin{
+                width: 25px;
+                height: 25px;
+            }
+            .address{
+                font-size: 1rem;
+                margin: 0px;
+            }
+        } 
+        .vegSection{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
         } 
         .cateTitle{
             font-size: 1.2rem;
             font-weight: bold;
             color: black;
             padding-left: 10px;
-            padding-top: 10px;
         }
         .card_div{
             .card{

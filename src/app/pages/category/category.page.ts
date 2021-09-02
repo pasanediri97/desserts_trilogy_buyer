@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class CategoryPage implements OnInit {
   @ViewChild('content', { static: false }) private content: any;
   id: any;
+  allRest: any[] = [];
+  dummyRest: any[] = [];
   name: any;
   descritions: any;
   cover: any = '';
@@ -207,5 +209,13 @@ export class CategoryPage implements OnInit {
 
   getCurrency() {
     return this.util.getCurrecySymbol();
+  }
+
+  onSearchChange(event) {
+    console.log(event.detail.value);
+
+    this.allRest = this.dummyRest.filter((ele: any) => {
+      return ele.name.toLowerCase().includes(event.detail.value.toLowerCase());
+    });
   }
 }
