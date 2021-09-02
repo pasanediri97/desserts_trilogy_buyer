@@ -92,6 +92,9 @@ ion-toolbar:last-child {
     padding-right: 16px;
     padding-top: 10px;
     padding-bottom: 10px;
+    &.Discover{
+        padding-left: 0;
+    }
     ::-webkit-scrollbar {
         width: 0px;
         background: transparent;
@@ -123,6 +126,12 @@ ion-toolbar:last-child {
         font-weight: bold;
         border: 1px solid lightgray;
         border-radius: 5px;
+    }
+    img {
+        width: 33%;
+        object-fit: cover;
+        object-position: center;
+        margin-right: 16px;
     }
 }
 
@@ -174,11 +183,7 @@ ion-toolbar:last-child {
         // background-repeat: no-repeat;
         display: flex;
         justify-content: space-between;
-        img {
-            width: 30%;
-            object-fit: cover;
-            object-position: center;
-        }
+        
     }
     .Categories {
         img {
