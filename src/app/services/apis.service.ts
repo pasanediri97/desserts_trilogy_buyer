@@ -189,4 +189,23 @@ export class ApisService {
       });
     });
   }
+
+  public getMyOrders(id): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('orders', ref => ref.where('userId', '==', id)).get().subscribe(async (venue) => {
+        let data = venue.docs.map(element => {
+          let item = element.data();
+          item.vid.get().then(function (doc) {
+            item.vid = doc.data();
+            item.vid.id = doc.id;
+          });
+          item.id = element.id;
+          return item;
+        });
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
 }
