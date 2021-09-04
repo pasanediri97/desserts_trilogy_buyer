@@ -24,6 +24,10 @@ const routes: Routes = [
     path: 'add-card',
     loadChildren: () => import('./pages/add-card/add-card.module').then(m => m.AddCardPageModule)
   },
+  {
+    path: 'stripe-payments',
+    loadChildren: () => import('./pages/stripe-payments/stripe-payments.module').then(m => m.StripePaymentsPageModule)
+  },
 ];
 @NgModule({
   imports: [
