@@ -28,6 +28,14 @@ const routes: Routes = [
     path: 'stripe-payments',
     loadChildren: () => import('./pages/stripe-payments/stripe-payments.module').then(m => m.StripePaymentsPageModule)
   },
+  {
+    path: 'history-detail',
+    loadChildren: () => import('./pages/history-detail/history-detail.module').then(m => m.HistoryDetailPageModule)
+  },
+  {
+    path: 'history',
+    loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule)
+  },
 ];
 @NgModule({
   imports: [
