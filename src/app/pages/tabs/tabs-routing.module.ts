@@ -13,7 +13,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../category/category.module').then(m => m.CategoryPageModule)
+            import('../category/category.module').then(m => m.CategoryPageModule)
           }
         ]
       },
@@ -22,6 +22,13 @@ const routes: Routes = [
       },
       {
         path: 'tab3',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../cart/cart.module').then(m => m.CartPageModule)
+          }
+        ]
       },
       {
         path: 'tab4',
