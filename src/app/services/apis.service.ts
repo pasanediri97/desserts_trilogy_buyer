@@ -162,4 +162,31 @@ export class ApisService {
       });
     });
   }
+
+  public getMyAddress(uid: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection('address').doc(uid).collection('all').get().then((data) => {
+        var users = data.docs.map(doc => {
+          var item = doc.data();
+          item.id = doc.id;
+          return item;
+        });
+        resolve(users);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  public deleteAddress(uid, id): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('address').doc(uid).collection('all').doc(id).delete().then((data) => {
+        resolve(data);
+      }, error => {
+        reject(error);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
 }
