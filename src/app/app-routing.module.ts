@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'add-new-address',
     loadChildren: () => import('./pages/add-new-address/add-new-address.module').then(m => m.AddNewAddressPageModule)
   },
+  {
+    path: 'add-card',
+    loadChildren: () => import('./pages/add-card/add-card.module').then(m => m.AddCardPageModule)
+  },
 ];
 @NgModule({
   imports: [
