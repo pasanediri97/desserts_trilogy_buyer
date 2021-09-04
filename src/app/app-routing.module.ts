@@ -13,6 +13,18 @@ const routes: Routes = [
     // canActivate: [AuthGuard]
   },
   {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartPageModule)
+  },
+  {
+    path: 'category',
+    loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryPageModule)
+  },
+  {
     path: 'choose-address',
     loadChildren: () => import('./pages/choose-address/choose-address.module').then(m => m.ChooseAddressPageModule)
   },
@@ -36,6 +48,7 @@ const routes: Routes = [
     path: 'history',
     loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule)
   },
+  
 ];
 @NgModule({
   imports: [
