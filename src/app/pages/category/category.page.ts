@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
-import { NavController} from '@ionic/angular';
+import { AlertController, NavController} from '@ionic/angular';
 import { ApisService } from 'src/app/services/apis.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Router } from '@angular/router'; 
@@ -40,6 +40,7 @@ export class CategoryPage implements OnInit {
     private util: UtilService,
     private navCtrl: NavController, 
     private router: Router, 
+    private alertController: AlertController,
   ) { }
 
   ngOnInit() {
@@ -51,14 +52,6 @@ export class CategoryPage implements OnInit {
         this.getVenueDetails();
     //   }
     // });
-  }
-
-  getAddress() {
-    const address = JSON.parse(localStorage.getItem('deliveryAddress'));
-    if (address && address.address) {
-      this.deliveryAddress = address.address;
-    }
-    return this.deliveryAddress;
   }
 
   getVenueDetails() {
@@ -233,4 +226,110 @@ export class CategoryPage implements OnInit {
   protected resetChanges = () => {
     this.foods = this.dummyFoods;
   };
+
+ add(index) {
+    console.log("added"); 
+          const vid = localStorage.getItem("vid");
+          if (vid && vid !== this.id) {
+            this.presentAlertConfirm();
+            return false;
+          } 
+          this.foods[index].quantiy = 1;
+          this.calculate(); 
+  }
+
+  calculate() { 
+    this.dummy = []; 
+    console.log(this.foods);
+    let item = this.foods.filter((x) => x.quantiy > 0);
+    this.foods.forEach((element) => {
+      if (element.quantiy === 0) {
+        element.selectedItem = [];
+      }
+    }); 
+    this.totalPrice = 0;
+    this.totalItem = 0;
+    this.cart = []; 
+    item.forEach((element) => {
+      this.totalItem = this.totalItem + element.quantiy; 
+      if (element && element.selectedItem && element.selectedItem.length > 0) {
+        let subPrice = 0;
+        element.selectedItem.forEach((subItems) => {
+          subItems.item.forEach((realsItems) => {
+            subPrice = subPrice + realsItems.value;
+          });
+          subPrice = subPrice * subItems.total;
+        });
+        this.totalPrice = this.totalPrice + subPrice;
+        // this.totalPrice = this.totalPrice + (subPrice * parseInt(element.quantiy));
+      } else {
+        this.totalPrice =
+          this.totalPrice +
+          parseFloat(element.price) * parseInt(element.quantiy);
+      }
+      this.cart.push(element);
+    });
+    localStorage.removeItem("userCart"); 
+    localStorage.setItem("userCart", JSON.stringify(this.cart));
+    this.totalPrice = parseFloat(this.totalPrice).toFixed(2); 
+    if (this.totalItem === 0) {
+      this.totalItem = 0;
+      this.totalPrice = 0;
+    }
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: this.util.translate("Warning"),
+      message: this.util.translate(
+        `you already have item's in cart with different restaurant`
+      ),
+      buttons: [
+        {
+          text: this.util.translate("Cancel"),
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            console.log("Confirm Cancel: blah");
+          },
+        },
+        {
+          text: this.util.translate("Clear cart"),
+          handler: () => {
+            console.log("Confirm Okay");
+            localStorage.removeItem("vid");
+            this.dummy = Array(10);
+            localStorage.removeItem("categories");
+            localStorage.removeItem("dummyItem");
+            localStorage.removeItem("foods");
+            this.totalItem = 0;
+            this.totalPrice = 0;
+            this.getCates();
+            this.getFoods();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  addQ(index) { 
+    this.foods[index].quantiy = this.foods[index].quantiy + 1;
+    this.calculate();
+  }
+
+  removeQ(index) { 
+      this.foods[index].quantiy = 0; 
+    this.calculate();
+  }
+ 
+
+  getAddress() {
+    const address = JSON.parse(localStorage.getItem('deliveryAddress'));
+    if (address && address.address) {
+      this.deliveryAddress = address.address;
+    }
+    return this.deliveryAddress;
+  }
 }
