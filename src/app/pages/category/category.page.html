@@ -1,8 +1,8 @@
 <ion-content #content>
   <div class="mainContent">
     <div class="restContent">
-      <div class="btnss"> 
-        <ion-icon (click)="back()" class="backIcon" color="dark" slot="start" name="arrow-back-outline"></ion-icon>
+      <div class="btnss">
+        <!-- <ion-icon (click)="back()" class="backIcon" color="dark" slot="start" name="arrow-back-outline"></ion-icon> -->
         <!-- <ion-label class="moreInfo" (click)="openDetails()">{{'View more' | translate}}</ion-label> -->
       </div>
     </div>
@@ -11,11 +11,16 @@
       <!-- <ion-label class="restname">{{name}}</ion-label>
       <ion-label class="cusine">{{getCusine(cusine)}}</ion-label> -->
       <div class="div_searchbar">
-        <ion-searchbar animated="true" mode="ios" [placeholder]="('Search') || '&nbsp;'"
-          (ionChange)="onSearchChange($event)" [debounce]="250" class="search_bar"></ion-searchbar>
+        <ion-searchbar
+          animated="true"
+          mode="ios"
+          [placeholder]="('Search') || '&nbsp;'"
+          (ionChange)="onSearchChange($event)"
+          [debounce]="250"
+          class="search_bar"
+        ></ion-searchbar>
       </div>
-      <div class="vegSection"> 
-      </div>
+      <div class="vegSection"></div>
       <div *ngFor="let item of dummy">
         <ion-list>
           <ion-item>
@@ -24,44 +29,79 @@
             </ion-thumbnail>
             <ion-label>
               <h3>
-                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                <ion-skeleton-text
+                  animated
+                  style="width: 50%"
+                ></ion-skeleton-text>
               </h3>
               <p>
-                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                <ion-skeleton-text
+                  animated
+                  style="width: 80%"
+                ></ion-skeleton-text>
               </p>
               <p>
-                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                <ion-skeleton-text
+                  animated
+                  style="width: 60%"
+                ></ion-skeleton-text>
               </p>
             </ion-label>
           </ion-item>
         </ion-list>
       </div>
-      <div *ngFor="let cate of categories">
-        <ion-label class="cateTitle" [id]="cate.id">{{cate.name}}</ion-label>
+      <div *ngIf="showSearch">
         <div class="card_div">
-
           <div class="card" *ngFor="let item of foods;let i = index">
-            <div *ngIf="cate.id == item.cid.id" class="mainCat">
-              <img [src]="item.cover" alt="" class="image_div">
-              <div class="desc_div">
-                <ion-label class="heading_lbl">{{item.name}}</ion-label>
-                <ion-label class="small_lbl">{{item.desc}}</ion-label>
-                <ion-label class="small_lbl">{{getCurrency()}} {{item.price}}</ion-label>
-              </div>
-              <div class="cartBtn" *ngIf="item.quantiy <= 0">
-                <ion-label class="btns" >Add</ion-label>
-                <!-- <ion-button  size="small" expand="block" fill="outline" shape="round">
-                  {{'Add' | translate}}
-                </ion-button> -->
-              </div>
-              <div class="cartBtn2" *ngIf="item.quantiy > 0">
-                <ion-button  fill="clear" size="small">
-                  <ion-icon name="remove"></ion-icon>
-                </ion-button>
-                <p class="qunitity">{{item.quantiy}}</p>
-                <ion-button fill="clear" size="small">
-                  <ion-icon name="add"></ion-icon>
-                </ion-button>
+            <img [src]="item.cover" alt="" class="image_div" />
+            <div class="desc_div">
+              <ion-label class="heading_lbl">{{item.name}}</ion-label>
+              <ion-label class="small_lbl">{{item.desc}}</ion-label>
+              <ion-label class="small_lbl"
+                >{{getCurrency()}} {{item.price}}</ion-label
+              >
+            </div>
+            <div class="cartBtn" *ngIf="item.quantiy <= 0">
+              <ion-label class="btns">{{'Add' | translate}}</ion-label>
+            </div>
+            <div class="cartBtn2" *ngIf="item.quantiy > 0">
+              <ion-button fill="clear" size="small">
+                <ion-icon name="remove"></ion-icon>
+              </ion-button>
+              <p class="qunitity">{{item.quantiy}}</p>
+              <ion-button fill="clear" size="small">
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showSearch == false">
+        <div *ngFor="let cate of categories">
+          <ion-label class="cateTitle" [id]="cate.id">{{cate.name}}</ion-label>
+          <div class="card_div">
+            <div class="card" *ngFor="let item of foods;let i = index">
+              <div *ngIf="cate.id == item.cid.id" class="mainCat">
+                <img [src]="item.cover" alt="" class="image_div" />
+                <div class="desc_div">
+                  <ion-label class="heading_lbl">{{item.name}}</ion-label>
+                  <ion-label class="small_lbl">{{item.desc}}</ion-label>
+                  <ion-label class="small_lbl"
+                    >{{getCurrency()}} {{item.price}}</ion-label
+                  >
+                </div>
+                <div class="cartBtn" *ngIf="item.quantiy <= 0">
+                  <ion-label class="btns">{{'Add' | translate}}</ion-label>
+                </div>
+                <div class="cartBtn2" *ngIf="item.quantiy > 0">
+                  <ion-button fill="clear" size="small">
+                    <ion-icon name="remove"></ion-icon>
+                  </ion-button>
+                  <p class="qunitity">{{item.quantiy}}</p>
+                  <ion-button fill="clear" size="small">
+                    <ion-icon name="add"></ion-icon>
+                  </ion-button>
+                </div>
               </div>
             </div>
           </div>
@@ -70,22 +110,24 @@
     </div>
   </div>
 
-    <!-- <app-popover></app-popover> -->
+  <!-- <app-popover></app-popover> -->
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button color="light" mode="ios">
-        <ion-icon name="list" color="primary"></ion-icon>
-        <ion-label color="primary">Menu</ion-label>
-      </ion-fab-button>
-    </ion-fab>
-  </ion-content>
-  <ion-footer *ngIf="totalItem >0">
-    <ion-toolbar color="primary">
-      <ion-label color="light">{{totalItem}} ITEM</ion-label>
-      <ion-label color="light"> {{getCurrency()}} {{totalPrice}} plus taxes</ion-label>
-      <ion-button slot="end" fill="clear" color="light">
-        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-        View Cart
-      </ion-button>
-    </ion-toolbar>
-  </ion-footer>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="light" mode="ios">
+      <ion-icon name="list" color="primary"></ion-icon>
+      <ion-label color="primary">Menu</ion-label>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+<ion-footer *ngIf="totalItem >0">
+  <ion-toolbar color="primary">
+    <ion-label color="light">{{totalItem}} ITEM</ion-label>
+    <ion-label color="light">
+      {{getCurrency()}} {{totalPrice}} plus taxes</ion-label
+    >
+    <ion-button slot="end" fill="clear" color="light">
+      <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      View Cart
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
