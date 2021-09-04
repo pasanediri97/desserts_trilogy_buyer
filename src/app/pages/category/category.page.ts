@@ -33,6 +33,7 @@ export class CategoryPage implements OnInit {
   deliveryAddress: any = '';
   foodIds: any[] = [];
   cart: any[] = [];
+  showSearch:boolean = false;
   constructor( 
     private api: ApisService,
     private util: UtilService,
@@ -50,7 +51,7 @@ export class CategoryPage implements OnInit {
     //   }
     // });
   }
-
+  
   getAddress() {
     const address = JSON.parse(localStorage.getItem('deliveryAddress'));
     if (address && address.address) {
@@ -218,4 +219,25 @@ export class CategoryPage implements OnInit {
       return ele.name.toLowerCase().includes(event.detail.value.toLowerCase());
     });
   }
+
+
+  filterItems(searchTerm) {
+    if (searchTerm == "") {
+    this.showSearch = false;
+    } else {
+    this.showSearch = true;
+    }
+    return this.foods.filter((item) => {
+    return item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+    }
+    onCatSearchChange(event) {
+    this.resetChanges();
+    this.foods = this.filterItems(event.detail.value);
+    }
+    protected resetChanges = () => {
+    this.foods = this.dummyFoods;
+    };
+
+    
 }
