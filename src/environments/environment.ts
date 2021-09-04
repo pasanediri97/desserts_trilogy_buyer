@@ -27,8 +27,8 @@ export const environment = {
     production: 'YOUR_PRODUCTION_CLIENT_ID'
   },
   general: {
-    symbol: '$',
-    code: 'USD'
+    symbol: 'Rs',
+    code: 'LKR'
   }
 };
 
