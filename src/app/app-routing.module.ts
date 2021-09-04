@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
     // canActivate: [AuthGuard]
   },
+  {
+    path: 'choose-address',
+    loadChildren: () => import('./pages/choose-address/choose-address.module').then(m => m.ChooseAddressPageModule)
+  },
 ];
 @NgModule({
   imports: [
