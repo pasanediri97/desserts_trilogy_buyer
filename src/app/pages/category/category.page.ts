@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
-import { AlertController, NavController} from '@ionic/angular';
+import { AlertController, NavController, PopoverController} from '@ionic/angular';
 import { ApisService } from 'src/app/services/apis.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Router } from '@angular/router'; 
+import { MenuComponent } from 'src/app/components/menu/menu.component';
 
 @Component({
   selector: 'app-category',
@@ -40,6 +41,7 @@ export class CategoryPage implements OnInit {
     private util: UtilService,
     private navCtrl: NavController, 
     private router: Router, 
+    private popoverController: PopoverController,
     private alertController: AlertController,
   ) { }
 
@@ -344,5 +346,35 @@ export class CategoryPage implements OnInit {
       this.deliveryAddress = address.address;
     }
     return this.deliveryAddress;
+  }
+
+  async presentPopover(ev: any) {
+    if (this.categories.length <= 0) {
+      return false;
+    }
+    const popover = await this.popoverController.create({
+      component: MenuComponent,
+      event: ev,
+      componentProps: { data: this.categories },
+      mode: 'ios',
+    });
+    popover.onDidDismiss().then(data => {
+      console.log(data.data);
+      if (data && data.data) {
+        const yOffset = document.getElementById(data.data.id).offsetTop;
+        const yHOffset = document.getElementById(data.data.id).offsetHeight;
+
+        console.log(yOffset + ' : ' + yHOffset);
+        this.content.scrollToPoint(0, yOffset, 1000);
+      }
+    });
+    await popover.present();
+
+  }
+
+  viewCart() {
+    console.log('viewCart');
+    this.setData();
+    this.navCtrl.navigateRoot(['tabs/tab3']);
   }
 }
