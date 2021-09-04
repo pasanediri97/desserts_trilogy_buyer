@@ -33,6 +33,8 @@ export class CategoryPage implements OnInit {
   deliveryAddress: any = '';
   foodIds: any[] = [];
   cart: any[] = [];
+  showSearch: boolean = true;
+
   constructor( 
     private api: ApisService,
     private util: UtilService,
@@ -211,11 +213,24 @@ export class CategoryPage implements OnInit {
     return this.util.getCurrecySymbol();
   }
 
-  onSearchChange(event) {
-    console.log(event.detail.value);
-
-    this.allRest = this.dummyRest.filter((ele: any) => {
-      return ele.name.toLowerCase().includes(event.detail.value.toLowerCase());
+ 
+  filterItems(searchTerm) {
+    if (searchTerm == "") {
+      this.showSearch = false;
+    } else {
+      this.showSearch = true;
+    }
+    return this.foods.filter((item) => {
+      return item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
   }
+
+  onSearchChange(event) {
+    this.resetChanges();
+    this.foods = this.filterItems(event.detail.value);
+  }
+
+  protected resetChanges = () => {
+    this.foods = this.dummyFoods;
+  };
 }
