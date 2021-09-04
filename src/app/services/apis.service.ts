@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject } from 'rxjs';
-import * as firebase from 'firebase';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
+import * as firebase from 'firebase';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 export class AuthInfo {
   constructor(public $uid: string) { }
 
