@@ -195,15 +195,11 @@ export class AddNewAddressPage implements OnInit {
       return false;
     }
     console.log('call api');
-    this.util.show();
-    this.api.checkAuth().then((data: any) => {
-      console.log(data);
-
-      if (data) {
+    this.util.show();  
         const id = this.util.makeid(10);
         const param = {
           id: id,
-          uid: data.uid,
+          uid: "uoZfuvtoEyVqMsHeo9pOe5fhzMk2",
           address: this.address,
           lat: this.lat,
           lng: this.lng,
@@ -211,7 +207,7 @@ export class AddNewAddressPage implements OnInit {
           house: this.house,
           landmark: this.landmark
         };
-        this.api.addNewAddress(data.uid, id, param).then((data) => {
+        this.api.addNewAddress("uoZfuvtoEyVqMsHeo9pOe5fhzMk2", id, param).then((data) => {
           this.util.hide();
           this.util.showToast(this.util.translate('succesfully added address'), 'success', 'bottom');
           this.navCtrl.back();
@@ -223,23 +219,8 @@ export class AddNewAddressPage implements OnInit {
           this.util.hide();
           console.log(error);
           this.util.errorToast(this.util.translate('Something went wrong'));
-        });
-      } else {
-        this.util.hide();
-        this.util.errorToast(this.util.translate('Something went wrong'));
-        this.navCtrl.navigateRoot(['tabs']);
-      }
-    }, error => {
-      this.util.hide();
-      console.log(error);
-      this.util.errorToast(this.util.translate('Something went wrong'));
-      this.navCtrl.navigateRoot(['tabs']);
-    }).catch(error => {
-      this.util.hide();
-      console.log(error);
-      this.util.errorToast(this.util.translate('Something went wrong'));
-      this.navCtrl.navigateRoot(['tabs']);
-    });
+        }); 
+     
   }
 
   updateAddress() {
@@ -249,7 +230,7 @@ export class AddNewAddressPage implements OnInit {
     }
     const param = {
       id: this.id,
-      uid: localStorage.getItem('uid'),
+      uid: "uoZfuvtoEyVqMsHeo9pOe5fhzMk2",
       address: this.address,
       lat: this.lat,
       lng: this.lng,
@@ -258,7 +239,7 @@ export class AddNewAddressPage implements OnInit {
       landmark: this.landmark
     };
     this.util.show();
-    this.api.updateAddress(localStorage.getItem('uid'), this.id, param).then((data) => {
+    this.api.updateAddress("uoZfuvtoEyVqMsHeo9pOe5fhzMk2", this.id, param).then((data) => {
       this.util.hide();
       this.util.showToast('Address updated', 'success', 'bottom');
       this.navCtrl.back();
