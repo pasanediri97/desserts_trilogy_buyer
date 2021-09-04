@@ -265,4 +265,29 @@ export class ApisService {
     };
     return this.http.post('https://onesignal.com/api/v1/notifications', body, header);
   }
+
+  public getVenueUser(id): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('users').doc(id).get().subscribe((venue: any) => {
+        resolve(venue.data());
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  public createOrder(id, param): Promise<any> {
+    param.vid = this.db.collection('venue').doc(param.vid);
+    param.uid = this.db.collection('users').doc(param.uid);
+    // param.dId = this.db.collection('users').doc(param.dId);
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('orders').doc(id).set(param).then((data) => {
+        resolve(data);
+      }, error => {
+        reject(error);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
 }

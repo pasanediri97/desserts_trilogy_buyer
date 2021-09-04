@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx'; 
+import { ChooseAddressPageModule } from 'src/app/pages/choose-address/choose-address.module';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera/ngx'; 
@@ -43,8 +44,12 @@ export function LanguageLoader(http: HttpClient) {
     AngularFireStorageModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireDatabaseModule, 
-    HttpClientModule,  
+    AngularFireDatabaseModule,
+    ChooseAddressPageModule,
+    HttpClientModule,
+    // SelectDriversPageModule,
+    // VariationPageModule,
+    // VariationsPageModule, 
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

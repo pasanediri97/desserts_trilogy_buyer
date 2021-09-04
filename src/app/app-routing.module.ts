@@ -48,6 +48,10 @@ const routes: Routes = [
     path: 'history',
     loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule)
   },
+  {
+    path: 'payments',
+    loadChildren: () => import('./pages/payments/payments.module').then(m => m.PaymentsPageModule)
+  },
   
 ];
 @NgModule({
