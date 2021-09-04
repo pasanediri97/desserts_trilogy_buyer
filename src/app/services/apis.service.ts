@@ -152,4 +152,14 @@ export class ApisService {
     }
     return new_list.join("&");
   }
+
+  public updateProfile(uid, param): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection('users').doc(uid).update(param).then((data) => {
+        resolve(data);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
 }
