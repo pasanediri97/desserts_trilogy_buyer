@@ -19,6 +19,13 @@ const routes: Routes = [
       },
       {
         path: 'tab2',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../history/history.module').then(m => m.HistoryPageModule)
+          }
+        ]
       },
       {
         path: 'tab3',

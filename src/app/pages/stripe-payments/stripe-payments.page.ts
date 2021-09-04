@@ -40,5 +40,16 @@ export class StripePaymentsPage implements OnInit {
     
   }
 
+  onAdd() {
+    this.router.navigate(['add-card']);
+  }
+
+  changeMethod(id) {
+    this.card_token = id;
+  }
+
+  getCurrency() {
+    return this.util.getCurrecySymbol();
+  }
   
 }

@@ -119,7 +119,7 @@
 
   <!-- <app-popover></app-popover> -->
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="presentPopover($event)">
     <ion-fab-button color="light" mode="ios">
       <ion-icon name="list" color="primary"></ion-icon>
       <ion-label color="primary">Menu</ion-label>
@@ -132,7 +132,7 @@
     <ion-label color="light">
       {{getCurrency()}} {{totalPrice}} plus taxes</ion-label
     >
-    <ion-button slot="end" fill="clear" color="light">
+    <ion-button (click)="viewCart()" slot="end" fill="clear" color="light">
       <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       View Cart
     </ion-button>
