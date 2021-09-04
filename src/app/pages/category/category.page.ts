@@ -1,6 +1,7 @@
+import { VariationsPage } from './../variations/variations.page';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
-import { AlertController, NavController, PopoverController} from '@ionic/angular';
+import { AlertController, NavController, PopoverController, ModalController} from '@ionic/angular';
 import { ApisService } from 'src/app/services/apis.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Router } from '@angular/router'; 
@@ -43,6 +44,7 @@ export class CategoryPage implements OnInit {
     private router: Router, 
     private popoverController: PopoverController,
     private alertController: AlertController,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -316,6 +318,55 @@ export class CategoryPage implements OnInit {
     await alert.present();
   }
 
+  async openVariations(index) {
+    const modal = await this.modalCtrl.create({
+      component: VariationsPage,
+      cssClass: 'custom_modal2',
+      componentProps: {
+        name: this.name,
+        food: this.foods[index]
+      }
+    });
+    modal.onDidDismiss().then((data) => {
+      console.log('from variations', data.data);
+      console.log('data.data', data.role);
+      let isValid = false;
+      if (data.role === 'new') {
+        this.foods[index].quantiy = 1;
+        const carts = {
+          item: data.data,
+          total: 1
+        };
+        this.foods[index].selectedItem.push(carts);
+        isValid = true;
+      } else if (data.role === 'sameChoice') {
+        this.foods[index].selectedItem = data.data;
+        this.foods[index].quantiy = this.foods[index].selectedItem.length;
+        isValid = true;
+      } else if (data.role === 'newCustom') {
+        const carts = {
+          item: data.data,
+          total: 1
+        };
+        this.foods[index].selectedItem.push(carts);
+        this.foods[index].quantiy = this.foods[index].quantiy + 1;
+        isValid = true;
+      } else if (data.role === 'remove') {
+        console.log('number', data.data);
+        this.foods[index].quantiy = 0;
+        this.foods[index].selectedItem = [];
+        isValid = true;
+      } else {
+        console.log('empy');
+      }
+      if (isValid) {
+        console.log('isValid', isValid);
+        this.calculate();
+      }
+    });
+    return await modal.present();
+  }
+
   addQ(index) { 
     this.foods[index].quantiy = this.foods[index].quantiy + 1;
     this.calculate();
@@ -331,7 +382,7 @@ export class CategoryPage implements OnInit {
       if (this.foods[index].quantiy >= 1 && !this.foods[index].size) {
         this.foods[index].quantiy = this.foods[index].quantiy - 1;
       } else {
-        // this.openVariations(index);
+        this.openVariations(index);
       }
     } else {
       this.foods[index].quantiy = 0;
@@ -377,4 +428,6 @@ export class CategoryPage implements OnInit {
     this.setData();
     this.navCtrl.navigateRoot(['tabs/tab3']);
   }
+
+
 }

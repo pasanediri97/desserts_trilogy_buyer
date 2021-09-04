@@ -1,3 +1,4 @@
+import { VariationsPageModule } from './pages/variations/variations.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -49,7 +50,7 @@ export function LanguageLoader(http: HttpClient) {
     HttpClientModule,
     // SelectDriversPageModule,
     // VariationPageModule,
-    // VariationsPageModule, 
+    VariationsPageModule, 
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
