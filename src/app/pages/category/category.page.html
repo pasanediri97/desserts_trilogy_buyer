@@ -62,14 +62,14 @@
               >
             </div>
             <div class="cartBtn" *ngIf="item.quantiy <= 0">
-              <ion-label class="btns">{{'Add' | translate}}</ion-label>
+              <ion-label class="btns" (click)="add(i)">Add</ion-label>
             </div>
             <div class="cartBtn2" *ngIf="item.quantiy > 0">
               <ion-button fill="clear" size="small">
-                <ion-icon name="remove"></ion-icon>
+                <ion-icon (click)="removeQ(i)" name="remove"></ion-icon>
               </ion-button>
               <p class="qunitity">{{item.quantiy}}</p>
-              <ion-button fill="clear" size="small">
+              <ion-button (click)="addQ(i)" fill="clear" size="small">
                 <ion-icon name="add"></ion-icon>
               </ion-button>
             </div>
@@ -91,14 +91,14 @@
                   >
                 </div>
                 <div class="cartBtn" *ngIf="item.quantiy <= 0">
-                  <ion-label class="btns">{{'Add' | translate}}</ion-label>
+                  <ion-label class="btns" (click)="add(i)">Add</ion-label>
                 </div>
                 <div class="cartBtn2" *ngIf="item.quantiy > 0">
-                  <ion-button fill="clear" size="small">
+                  <ion-button (click)="removeQ(i)" fill="clear" size="small">
                     <ion-icon name="remove"></ion-icon>
                   </ion-button>
                   <p class="qunitity">{{item.quantiy}}</p>
-                  <ion-button fill="clear" size="small">
+                  <ion-button (click)="addQ(i)" fill="clear" size="small">
                     <ion-icon name="add"></ion-icon>
                   </ion-button>
                 </div>
