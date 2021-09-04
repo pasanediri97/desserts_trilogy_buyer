@@ -6,11 +6,11 @@
   <ion-content>
     <div class="mainContent">
       <div class="noData" *ngIf="!cart?.length">
-        <img src="assets/runing.gif" alt="" class="noDataImg">
+        <img src="assets/Dessert's Trilogy logo.jpeg" alt="" class="noDataImg">
         <ion-label>{{'Your Cart is Empty' | translate}}</ion-label>
         <ion-label>{{'Please add your favourite food' | translate}} </ion-label>
-        <ion-button (click)="getCart()" expand="block" fill="outline">
-          {{'Browse your favourite restaurants' | translate}}
+        <ion-button (click)="getCart()" expand="block" fill="outline" class="browse-noData">
+          {{'Browse your favourite foods' | translate}}
         </ion-button>
       </div>
       <div *ngIf="cart?.length">
