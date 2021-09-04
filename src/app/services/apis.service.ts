@@ -208,4 +208,61 @@ export class ApisService {
       });
     });
   }
+
+  public getOrderById(id): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+      this.adb.collection('orders').doc(id).get().subscribe(async (order: any) => {
+        let data = await order.data();
+        await data.vid.get().then(function (doc) {
+          data.vid = doc.data();
+          data.vid.id = doc.id;
+        });
+        if (data && data.dId) {
+          await data.dId.get().then(function (doc) {
+            data.dId = doc.id;
+            data.dId = doc.data();
+          });
+        }
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  public getProfile(id): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('users').doc(id).get().subscribe((profile: any) => {
+        resolve(profile.data());
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  public updateOrderStatus(id, value): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+      this.adb.collection('orders').doc(id).update({ status: value }).then(async (order: any) => {
+        resolve(order);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  sendNotification(msg, title, id) {
+    const body = {
+      app_id: environment.onesignal.appId,
+      include_player_ids: [id],
+      headings: { en: title },
+      contents: { en: msg },
+      data: { task: msg }
+    };
+    const header = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization', `Basic ${environment.onesignal.restKey}`)
+    };
+    return this.http.post('https://onesignal.com/api/v1/notifications', body, header);
+  }
 }
