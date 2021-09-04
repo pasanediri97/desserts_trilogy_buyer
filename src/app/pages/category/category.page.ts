@@ -33,7 +33,7 @@ export class CategoryPage implements OnInit {
   deliveryAddress: any = '';
   foodIds: any[] = [];
   cart: any[] = [];
-  showSearch: boolean = true;
+  showSearch: boolean = false;
 
   constructor( 
     private api: ApisService,
