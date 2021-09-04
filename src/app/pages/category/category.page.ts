@@ -319,8 +319,21 @@ export class CategoryPage implements OnInit {
     this.calculate();
   }
 
-  removeQ(index) { 
-      this.foods[index].quantiy = 0; 
+  // removeQ(index) { 
+  //     this.foods[index].quantiy = 0; 
+  //   this.calculate();
+  // }
+
+    removeQ(index) {
+    if (this.foods[index].quantiy !== 0) {
+      if (this.foods[index].quantiy >= 1 && !this.foods[index].size) {
+        this.foods[index].quantiy = this.foods[index].quantiy - 1;
+      } else {
+        // this.openVariations(index);
+      }
+    } else {
+      this.foods[index].quantiy = 0;
+    }
     this.calculate();
   }
  
