@@ -3,28 +3,35 @@
       <ion-buttons slot="start">
         <ion-back-button mode="md"></ion-back-button>
       </ion-buttons>
-      <ion-title>{{'Payments' | translate}}</ion-title>
+      <ion-title>Payments</ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content>
     <div class="header">
-      <ion-label class="title">{{'Payment Options' | translate}}</ion-label>
+      <ion-label class="title">Select your payment method</ion-label>
     </div>
+    <div class="hold-img">
+      <img src="/assets/imgs/Wavy_Tech-31_Single-01.jpg" />
+    </div>
+    
+    <div class="p-method">
     <ion-item (click)="openStripe()">
       <ion-thumbnail slot="start">
         <img src="/assets/PayHere.png" />
       </ion-thumbnail>
-      <ion-label>{{'Pay with' | translate}} PayHere</ion-label>
+      <ion-label>Pay with PayHere</ion-label>
       <ion-icon mode="ios" name="arrow-forward-outline" slot="end"></ion-icon>
     </ion-item>
+  </div>
   
-  
+  <div class="p-method">
     <ion-item (click)="placeOrder()">
       <ion-thumbnail slot="start">
         <img src="/assets/cod.png" />
       </ion-thumbnail>
-      <ion-label>{{'Cash on Delivery' | translate}}</ion-label>
+      <ion-label>Cash on Delivery</ion-label>
       <ion-icon mode="ios" name="arrow-forward-outline" slot="end"></ion-icon>
     </ion-item>
+  </div>
   </ion-content>

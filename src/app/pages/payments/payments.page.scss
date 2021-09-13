@@ -1,8 +1,22 @@
-.header{
+.header {
     background: #f3f3f3;
     padding: 20px;
-    .title{
+    .title {
         font-size: 1rem;
         font-weight: bold;
     }
+}
+.hold-img {
+    margin: 0 auto;
+    width: 70%;
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+.p-method{
+    margin: 0 auto;
+    width: 90%;
 }

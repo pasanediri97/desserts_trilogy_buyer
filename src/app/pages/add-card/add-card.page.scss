@@ -1,32 +1,43 @@
-.div_content{
+.div_content {
     width: 100%;
     padding-left: 25px;
     padding-right: 25px;
 
-    .lbl_card{
+    .hold-img {
+        margin: 34px auto;
+        width: 70%;
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    .lbl_card {
         font-size: 16px;
-        display: block; 
+        display: block;
         color: gray;
         margin-top: 15px;
     }
-    .div_card{
+    .div_card {
         margin-top: 20px;
         width: 100%;
         border: 1px solid gray;
         border-radius: 5px;
         padding: 20px;
 
-        .input_all{
+        .input_all {
             font-size: 10px;
             border: 1px solid lightgray;
             border-radius: 5px;
             --padding-start: 10px;
         }
-        .input_date{
+        .input_date {
             font-size: 10px;
             padding: 0px !important;
             color: black;
-            // padding-bottom: 3px !important;        
+            // padding-bottom: 3px !important;
         }
         // /deep/ .native-input.sc-ion-input-md{
         //     padding-bottom: 2px !important;
@@ -38,18 +49,18 @@
         //     padding-left: 0px !important;
         //     padding-top: 0px !important
         // }
-        .card_number{
+        .card_number {
             font-size: 10px;
-            color: gray;  
+            color: gray;
         }
-        .img_visa{
+        .img_visa {
             float: right;
             height: 30px;
             width: 30px;
         }
     }
 
-    .in_cvc{
+    .in_cvc {
         border: 1px solid gray;
         margin-top: 15px;
         border-radius: 5px;
@@ -58,19 +69,19 @@
         font-size: 10px;
     }
 
-    .btn_addcard{
+    .btn_addcard {
         margin-top: 30px;
         --box-shadow: none !important;
     }
 }
-.title{
+.title {
     margin: 0px;
     padding: 10px;
     font-weight: bold;
     font-size: 1.2rem;
     color: var(--ion-color-primary);
 }
-.sub{
+.sub {
     padding: 10px;
     margin: 0px;
     font-size: 1rem;
