@@ -1,96 +1,145 @@
-.header{
-    border-bottom: 1px solid lightgray;
-    .bts{
-      display: flex;
-      flex-direction:row;
-      justify-content: space-around;
-      padding-bottom: 10px;
-    }
-    .desc{
-      .title{
-        margin: 0px;
-        padding: 10px;
-        font-size: 18px;
-        font-weight: bold;
-      }
-      .details{
-        margin: 0px;
-        padding: 0px 10px;
-        font-size: 14px;
-      }
-    }
+.header {
+  // border-bottom: 1px solid lightgray;
+  padding: 0 10px;
+  .bts {
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: space-around;
+    padding: 20px 0 0;
   }
-  .padder
-  {
-    padding-bottom: 60px;
-  }
-  .cartItems{
-    padding: 10px 5px;
-    .name{
-     font-size: 18px;
+
+  .desc {
+    .title {
+      margin: 0px;
+      padding: 10px;
+      font-size: 18px;
       font-weight: bold;
-      margin: 0px; 
-    }
-    .details{
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between; 
-      .names{
-        .subDetails{
-          margin: 0px;
-          font-size: 14px;
-        }
-      }
-      .cartBtn2{
-          position: absolute;
-          right: 15px;
-          width: 80px;
-          display: flex;
-          background: white;
-          .qunitity{
-              font-weight: bold;
-              margin-top: 8px;
-          }
-      }
     }
   }
-  .sameProduct{
-    padding: 5px;
-    padding: 5px;
+}
+
+.padder {
+  padding-bottom: 60px;
+}
+.variation-container {
+  padding: 0 15px;
+}
+.content-container {
+  padding: 0 15px !important;
+  &.size {
+    padding: 15px !important;
+  }
+  &.footer-btn {
+    padding: 0 25px !important;
+  }
+  .choice{
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+.content-wrap {
+  border: 1.5px solid lightgray;
+  margin: 18px 25px;
+}
+.item-img-wrap {
+  width: 100%;
+  padding: 0 25px;
+  .itemImg {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+  }
+  .details {
+    margin: 0px;
+    padding: 0px 10px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+}
+.cartItems {
+  padding: 10px 5px !important;
+  height: auto;
+  border-color: #ededed transparent !important;
+  border: 1px solid;
+  border-left-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  position: relative;
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0px;
+  }
+  .details {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
-    .desc{
-      padding: 0px 0px 10px 0px;
-      .name{
-        font-size: 18px;
-        font-weight: bold;
-        margin: 0px;
-      }
-      .selectedItem{
+    .names {
+      .subDetails {
         margin: 0px;
         font-size: 14px;
-        display: flex;
-        flex-direction: column;
-      }
-      .cartBtn2{
-          position: absolute;
-          right: 15px;
-          width: 80px;
-          display: flex;
-          background: white;
-          .qunitity{
-              font-weight: bold;
-              margin-top: 8px;
-          }
       }
     }
-    
+    .cartBtn2 {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      width: 80px;
+      display: flex;
+      background: white;
+      .qunitity {
+        font-weight: bold;
+        margin-top: 8px;
+      }
+    }
   }
-  .footers{
-    position:fixed;
-    bottom: 10px;
+  .item-img-wrap {
     width: 100%;
-    padding: 0px 10px;
+    margin: 29px auto 0;
+    .itemImg {
+      width: 100%;
+    }
   }
-  
+}
+.sameProduct {
+  padding: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .desc {
+    padding: 0px 0px 10px 0px;
+    .name {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0px;
+    }
+    .selectedItem {
+      margin: 0px;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+    }
+    .cartBtn2 {
+      position: absolute;
+      right: 15px;
+      width: 80px;
+      display: flex;
+      background: white;
+      .qunitity {
+        font-weight: bold;
+        margin-top: 8px;
+      }
+    }
+  }
+}
+.footers {
+  // position: fixed;
+  bottom: 10px;
+  width: 100%;
+  padding: 0px 10px;
+  margin-top: 10px;
+  // z-index: 99;
+}

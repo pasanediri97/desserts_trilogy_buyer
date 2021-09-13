@@ -2,8 +2,10 @@
   <div class="mainContent">
     <div class="restContent">
       <div class="btnss">
-        <!-- <ion-icon (click)="back()" class="backIcon" color="dark" slot="start" name="arrow-back-outline"></ion-icon> -->
-        <!-- <ion-label class="moreInfo" (click)="openDetails()">{{'View more' | translate}}</ion-label> -->
+        <img src="/assets/Dessert's Trilogy logo.jpeg" alt="" class="shop_logo" />
+        <ion-label class="moreInfo" >Dessert's Trilogy</ion-label>
+        <div class="userPhoto" [style.backgroundImage]="'url('+ profile +')'" *ngIf="profile"></div>
+        <div class="userPhoto" [style.backgroundImage]="'url(/assets/user.png)'" *ngIf="!profile"></div>
       </div>
     </div>
     <div class="foodsContent">
@@ -54,12 +56,12 @@
         <div class="card_div">
           <div class="card" *ngFor="let item of foods;let i = index">
             <div class="mainCat">
-              <div class="image-div-wrapper">
+              <div class="image-div-wrapper"  (click)="indetails(i)">
                 <img [src]="item.cover" alt="" class="image_div" />
               </div>
-              <div class="desc_div">
+              <div class="desc_div" (click)="indetails(i)">
                 <ion-label class="heading_lbl">{{item.name}}</ion-label>
-                <ion-label class="small_lbl desc">{{item.desc}}</ion-label>
+                <!-- <ion-label class="small_lbl desc">{{item.desc}}</ion-label> -->
                 <ion-label class="small_lbl"
                   >{{getCurrency()}} {{item.price}}</ion-label
                 >
@@ -85,14 +87,14 @@
           <ion-label class="cateTitle" [id]="cate.id">{{cate.name}}</ion-label>
           <div class="card_div">
             <div class="card" *ngFor="let item of foods;let i = index">
-              <div *ngIf="cate.id == item.cid.id" class="mainCat">
-                <div class="image-div-wrapper">
+              <div *ngIf="cate.id == item.cid.id" class="mainCat" >
+                <div class="image-div-wrapper" (click)="indetails(i)">
                   <img [src]="item.cover" alt="" class="image_div" />
                 </div>
                 
-                <div class="desc_div">
+                <div class="desc_div" (click)="indetails(i)">
                   <ion-label class="heading_lbl">{{item.name}}</ion-label>
-                  <ion-label class="small_lbl desc">{{item.desc}}</ion-label>
+                  <!-- <ion-label class="small_lbl desc">{{item.desc}}</ion-label> -->
                   <ion-label class="small_lbl"
                     >{{getCurrency()}} {{item.price}}</ion-label
                   >

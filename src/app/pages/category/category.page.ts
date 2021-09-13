@@ -36,6 +36,7 @@ export class CategoryPage implements OnInit {
   foodIds: any[] = [];
   cart: any[] = [];
   showSearch: boolean = false;
+  profile: any;
 
   constructor( 
     private api: ApisService,
@@ -44,7 +45,8 @@ export class CategoryPage implements OnInit {
     private router: Router, 
     private popoverController: PopoverController,
     private alertController: AlertController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private apis: ApisService,
   ) { }
 
   ngOnInit() {
@@ -56,6 +58,47 @@ export class CategoryPage implements OnInit {
         this.getVenueDetails();
     //   }
     // });
+  }
+
+  ionViewWillEnter() {
+    this.getProfile();
+  }
+
+  getProfile() {
+    if (localStorage.getItem('uid')) {
+
+      this.apis.getProfile(localStorage.getItem('uid')).then((data) => {
+        console.log(data);
+        if (data && data.cover) {
+          this.profile = data.cover;
+        }
+        if (data && data.status === 'deactive') {
+          localStorage.removeItem('uid');
+          // this.api.logout().then(data => {
+          //   console.log(data);
+          // });
+          this.router.navigate(['login']);
+          // Swal.fire({
+          //   title: 'Error',
+          //   text: 'Your are blocked please contact administrator',
+          //   icon: 'error',
+          //   showConfirmButton: true,
+          //   showCancelButton: true,
+          //   confirmButtonText: 'Need Help?',
+          //   backdrop: false,
+          //   background: 'white'
+          // }).then(data => {
+          //   if (data && data.value) {
+          //     this.router.navigate(['inbox']);
+          //   }
+          // });
+        }
+      }, err => {
+        console.log('Err', err);
+      }).catch(e => {
+        console.log('Err', e);
+      });
+    }
   }
 
   getVenueDetails() {
@@ -238,8 +281,17 @@ export class CategoryPage implements OnInit {
             this.presentAlertConfirm();
             return false;
           } 
+          if (this.foods[index].variations && this.foods[index].variations.length) {
+          console.log('open modal');
+          this.openVariations(index);
+        } else {
           this.foods[index].quantiy = 1;
           this.calculate(); 
+        }
+  }
+
+  indetails(index){
+    this.openVariations(index);
   }
 
   calculate() { 
@@ -368,8 +420,12 @@ export class CategoryPage implements OnInit {
   }
 
   addQ(index) { 
-    this.foods[index].quantiy = this.foods[index].quantiy + 1;
-    this.calculate();
+    if (this.foods[index].variations && this.foods[index].variations.length) {
+      this.openVariations(index);
+    } else {
+      this.foods[index].quantiy = this.foods[index].quantiy + 1;
+      this.calculate();
+    }
   }
 
   // removeQ(index) { 

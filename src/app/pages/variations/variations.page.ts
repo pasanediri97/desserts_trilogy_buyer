@@ -9,6 +9,7 @@ import { ModalController, NavParams } from '@ionic/angular';
 })
 export class VariationsPage implements OnInit {
   productName: any = '';
+  coverImg: any = '';
   desc: any = '';
   total: any = 0;
   lists: any;
@@ -33,6 +34,7 @@ export class VariationsPage implements OnInit {
     const info = this.navParma.get('food');
     console.log('info', info);
     this.productName = info.name;
+    this.coverImg = info.cover;
     this.desc = info.desc;
     this.lists = info.variations;
     const userCart = localStorage.getItem('userCart');

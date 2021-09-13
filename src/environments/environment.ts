@@ -27,7 +27,7 @@ export const environment = {
     production: 'YOUR_PRODUCTION_CLIENT_ID'
   },
   general: {
-    symbol: 'Rs',
+    symbol: 'LKR',
     code: 'LKR'
   }
 };
