@@ -112,8 +112,8 @@
     <plugin name="onesignal-cordova-plugin" spec="^2.8.3" />
     <plugin name="cordova-plugin-camera" spec="4.1.0" />
     <plugin name="com.paypal.cordova.mobilesdk" spec="^3.5.0" />
+    <plugin name="cordova-plugin-payhere" spec="^0.0.10" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="browser" spec="^5.0.4" />
     <engine name="android" spec="~7.0.0" />
-    <plugin name="cordova-plugin-payhere" spec="^0.0.10" />
 </widget>

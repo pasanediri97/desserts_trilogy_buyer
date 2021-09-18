@@ -250,22 +250,6 @@ export class ApisService {
     });
   }
 
-  sendNotification(msg, title, id) {
-    const body = {
-      app_id: environment.onesignal.appId,
-      include_player_ids: [id],
-      headings: { en: title },
-      contents: { en: msg },
-      data: { task: msg }
-    };
-    const header = {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json')
-        .set('Authorization', `Basic ${environment.onesignal.restKey}`)
-    };
-    return this.http.post('https://onesignal.com/api/v1/notifications', body, header);
-  }
-
   public getVenueUser(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb.collection('users').doc(id).get().subscribe((venue: any) => {
@@ -289,5 +273,21 @@ export class ApisService {
         reject(error);
       });
     });
+  }
+
+  sendNotification(msg, title, id) {
+    const body = {
+      app_id: environment.onesignal.appId,
+      include_player_ids: [id],
+      headings: { en: title },
+      contents: { en: msg },
+      data: { task: msg }
+    };
+    const header = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization', `Basic ${environment.onesignal.restKey}`)
+    };
+    return this.http.post('https://onesignal.com/api/v1/notifications', body, header);
   }
 }

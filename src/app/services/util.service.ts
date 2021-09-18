@@ -216,24 +216,6 @@ export class UtilService {
     });
     toast.present();
   }
-  async shoNotification(msg, colors, positon) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 4000,
-      color: colors,
-      position: positon,
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'cancel',
-          handler: () => {
-            // console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    toast.present();
-  }
 
   async errorToast(msg) {
     const toast = await this.toastCtrl.create({
@@ -273,5 +255,22 @@ export class UtilService {
     return result;
   }
 
-
+  async showNotification(msg, colors, positon) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 4000,
+      color: colors,
+      position: positon,
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          handler: () => {
+            // console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    toast.present();
+  }
 }
