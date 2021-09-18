@@ -15,9 +15,9 @@ export const environment = {
     databaseURL: "https://food-delivery-1e89f.firebaseio.com"
   },
   onesignal: {
-    appId: '',
-    googleProjectNumber: '',
-    restKey: ''
+    appId: 'ca4b6aa6-022d-4318-bb6e-a20cca9aab0c',
+    googleProjectNumber: '717623054826',
+    restKey: 'ZGJmNTJhOTMtMGVjZS00Y2VmLTk5MzUtYzg4M2JkODM2MDky'
   },
   stripe: {
     sk: ''
