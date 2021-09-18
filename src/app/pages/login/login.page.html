@@ -13,26 +13,35 @@
 
     <ion-list lines="none">
       <ion-item lines="none">
-        <ion-input [(ngModel)]="login.email" type="email" [placeholder]="Email" name="email"
+        <ion-input [(ngModel)]="login.email" type="email" placeholder="Email" name="email"
           #email="ngModel" spellcheck="false" autocapitalize="off" required>
         </ion-input>
       </ion-item>  
+      <ion-text color="danger">
+        <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
+         Email is required
+        </p>
+      </ion-text>
 
       <ion-item lines="none">
-        <ion-input [(ngModel)]="login.password" name="password" [placeholder]="Password "
+        <ion-input [(ngModel)]="login.password" name="password" placeholder="Password "
           type="password" #password="ngModel" required>
         </ion-input>
       </ion-item>
- 
+     <ion-text color="danger">
+        <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
+          Password is required
+        </p>
+      </ion-text>
     </ion-list>
 
     <ion-row class="ion-no-margin ion-no-padding">
       <ion-col class="ion-no-margin ion-no-padding">
         <p class="frgTag" (click)="resetPass()">Forgot Password?</p>
         <ion-button class="btn_class" (click)="onLogin(loginForm)" type="submit" expand="block" [disabled]="isLogin">
-          <p *ngIf="!isLogin">Login</p>
+          <p *ngIf="!isLogin" text-capitalize>Login</p>
           <ion-spinner name="circles" *ngIf="isLogin"></ion-spinner>
-        </ion-button>
+        </ion-button> 
       </ion-col>
     </ion-row>
 

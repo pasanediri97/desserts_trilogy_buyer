@@ -46,7 +46,8 @@ ion-toolbar{
     .btn_class{
         color: white ;
         height: 30px;
-        font-weight:600;
+        font-weight:bold;
+        text-transform: none;
     }
   
     .login-logo img {
@@ -64,7 +65,7 @@ ion-toolbar{
         border-radius: 5px !important;
         margin-top: 10px;
         
-    }
+    } 
   
    .createAcc{
     margin-top: 15px;
@@ -83,6 +84,7 @@ ion-toolbar{
     justify-content: center;
     align-items: center;
     padding: 10px 0px;
+    text-transform: none;
     .flagActive{
         height: 50px;
         width: 50px;
