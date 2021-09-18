@@ -1,0 +1,45 @@
+<ion-content class="ion-padding">
+  <div class="login-logo">
+    <img src="assets/icon.png" class="logo_icon" alt="foodies">
+    <p class="login-name">Login</p>
+  </div>
+  <ion-card>
+
+  <ion-card-content>
+  <form #loginForm="ngForm" novalidate>
+
+
+    <p class="subTitle">Enter your login detail to access <br> your account.</p>
+
+    <ion-list lines="none">
+      <ion-item lines="none">
+        <ion-input [(ngModel)]="login.email" type="email" [placeholder]="Email" name="email"
+          #email="ngModel" spellcheck="false" autocapitalize="off" required>
+        </ion-input>
+      </ion-item>  
+
+      <ion-item lines="none">
+        <ion-input [(ngModel)]="login.password" name="password" [placeholder]="Password "
+          type="password" #password="ngModel" required>
+        </ion-input>
+      </ion-item>
+ 
+    </ion-list>
+
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col class="ion-no-margin ion-no-padding">
+        <p class="frgTag" (click)="resetPass()">Forgot Password?</p>
+        <ion-button class="btn_class" (click)="onLogin(loginForm)" type="submit" expand="block" [disabled]="isLogin">
+          <p *ngIf="!isLogin">Login</p>
+          <ion-spinner name="circles" *ngIf="isLogin"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+  <p class="createAcc" (click)="register()">Dont have an account?
+    <span class="registerTag">Sign up</span>
+  </p> 
+  </ion-card-content>
+  </ion-card>
+</ion-content>
