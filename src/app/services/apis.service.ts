@@ -310,10 +310,5 @@ export class ApisService {
     };
     return this.http.post('https://onesignal.com/api/v1/notifications', body, header);
   }
-
-  public logout(): Promise<void> {
-    this.authInfo$.next(ApisService.UNKNOWN_USER); 
-    return this.fireAuth.auth.signOut();
-  }
 }
 
