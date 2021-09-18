@@ -29,6 +29,26 @@ export class ApisService {
     private http: HttpClient
   ) { }
 
+  public login(email: string, password: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.fireAuth.auth.signInWithEmailAndPassword(email, password)
+        .then(res => {
+          if (res.user) {
+            this.db.collection('users').doc(res.user.uid).update({
+              fcm_token: localStorage.getItem('fcm') ? localStorage.getItem('fcm') : ''
+            });
+            this.authInfo$.next(new AuthInfo(res.user.uid));
+            resolve(res.user);
+          }
+        })
+        .catch(err => {
+
+          this.authInfo$.next(ApisService.UNKNOWN_USER);
+          reject(`login failed ${err}`);
+        });
+    });
+  }
+  
   public getVenueDetails(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb.collection('venue').doc(id).get().subscribe((venue: any) => {
@@ -289,26 +309,6 @@ export class ApisService {
         .set('Authorization', `Basic ${environment.onesignal.restKey}`)
     };
     return this.http.post('https://onesignal.com/api/v1/notifications', body, header);
-  }
-
-  public login(email: string, password: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.fireAuth.auth.signInWithEmailAndPassword(email, password)
-        .then(res => {
-          if (res.user) {
-            this.db.collection('users').doc(res.user.uid).update({
-              fcm_token: localStorage.getItem('fcm') ? localStorage.getItem('fcm') : ''
-            });
-            this.authInfo$.next(new AuthInfo(res.user.uid));
-            resolve(res.user);
-          }
-        })
-        .catch(err => {
-
-          this.authInfo$.next(ApisService.UNKNOWN_USER);
-          reject(`login failed ${err}`);
-        });
-    });
   }
 }
 
