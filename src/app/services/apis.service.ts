@@ -130,7 +130,7 @@ export class ApisService {
         resolve(data);
       }, error => {
         reject(error);
-      }).catch(error => {
+      }).catch(error => { 
         reject(error);
       });
     });
@@ -315,5 +315,7 @@ export class ApisService {
     this.authInfo$.next(ApisService.UNKNOWN_USER); 
     return this.fireAuth.auth.signOut();
   }
+
+  
 }
 
