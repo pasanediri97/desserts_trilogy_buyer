@@ -384,5 +384,30 @@ export class ApisService {
       });
     });
   }
+
+  public register(email: string, password: string, fullname: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
+        .then(res => {
+          if (res.user) {
+            this.db.collection('users').doc(res.user.uid).set({
+              uid: res.user.uid,
+              email: email,
+              fullname: fullname,
+              type: 'user',
+              status: 'active',
+              fcm_token: localStorage.getItem('fcm') ? localStorage.getItem('fcm') : ''
+            });
+            this.authInfo$.next(new AuthInfo(res.user.uid));
+            resolve(res.user);
+          }
+        })
+        .catch(err => {
+
+          this.authInfo$.next(ApisService.UNKNOWN_USER);
+          reject(`login failed ${err}`)
+        });
+    });
+  }
 }
 
