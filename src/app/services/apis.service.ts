@@ -130,7 +130,7 @@ export class ApisService {
         resolve(data);
       }, error => {
         reject(error);
-      }).catch(error => {
+      }).catch(error => { 
         reject(error);
       });
     });
@@ -314,6 +314,75 @@ export class ApisService {
   public logout(): Promise<void> {
     this.authInfo$.next(ApisService.UNKNOWN_USER); 
     return this.fireAuth.auth.signOut();
+  }
+
+  public getMyProfile(id): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('users').doc(id).get().subscribe((users: any) => {
+        resolve(users.data());
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  public addReview(param): Promise<any> {
+    param.vid = this.db.collection('venue').doc(param.vid);
+    param.uid = this.db.collection('users').doc(param.uid);
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('reviews').doc(Math.random().toString()).set(param).then((data) => {
+        resolve(data);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  public updateVenue(informations: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('venue').doc(informations.uid).update(informations).then((data) => {
+        resolve(data);
+      }, error => {
+        reject(error);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  public getMyReviews(id): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('reviews', ref => ref.where('id', '==', id)).get().subscribe(async (review) => {
+        let data = review.docs.map((element) => {
+          let item = element.data();
+          item.id = element.id;
+          if (item && item.vid) {
+            item.vid.get().then(function (doc) {
+              item.vid = doc.data();
+            });
+          }
+          return item;
+        });
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  public getVenues(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('venue').get().subscribe((venue) => {
+        let data = venue.docs.map(element => {
+          let item = element.data();
+          item.id = element.id;
+          return item;
+        });
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
   }
 }
 
