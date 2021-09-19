@@ -349,5 +349,25 @@ export class ApisService {
       });
     });
   }
+
+  public getMyReviews(id): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('reviews', ref => ref.where('id', '==', id)).get().subscribe(async (review) => {
+        let data = review.docs.map((element) => {
+          let item = element.data();
+          item.id = element.id;
+          if (item && item.vid) {
+            item.vid.get().then(function (doc) {
+              item.vid = doc.data();
+            });
+          }
+          return item;
+        });
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
 }
 
