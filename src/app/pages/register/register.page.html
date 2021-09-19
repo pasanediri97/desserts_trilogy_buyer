@@ -1,0 +1,76 @@
+<ion-content class="ion-padding">
+    <div class="login-logo">
+      <img src="assets/icon.png" class="logo_icon" alt="foodies">
+      <p class="login-name">Register</p>
+      
+    </div>
+  
+    <ion-card>
+      <ion-card-content>
+    <form #loginForm="ngForm" novalidate>
+      <p class="subTitle">Enter your login detail to <br>
+        access your account</p>
+      <ion-list lines="none">
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="login.full_name" type="text" placeholder="Name"
+            name="full_name" #full_name="ngModel" spellcheck="false" autocapitalize="off" required>
+          </ion-input>
+        </ion-item>
+        <ion-text color="danger">
+          <p [hidden]="full_name.valid || submitted == false" class="ion-padding-start">
+          Name is required
+          </p>
+        </ion-text>
+  
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="login.email" type="email" placeholder="Email" name="email"
+            #email="ngModel" spellcheck="false" autocapitalize="off" required>
+          </ion-input>
+        </ion-item>
+        <ion-text color="danger">
+          <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
+            Email is required
+          </p>
+        </ion-text>
+  
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="login.password" name="password" placeholder="Password"
+            type="password" #password="ngModel" required>
+          </ion-input>
+        </ion-item>
+  
+        <ion-text color="danger">
+          <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
+            Password is required
+          </p>
+  
+        </ion-text>
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="login.confirmPassword" name="cpassword"
+            placeholder="Confirm Password" type="password" #cpassword="ngModel" required>
+          </ion-input>
+        </ion-item>
+  
+        <ion-text color="danger">
+          <p [hidden]="cpassword.valid || submitted == false" class="ion-padding-start">
+            Confirm Password is required
+          </p>
+        </ion-text>
+      </ion-list>
+  
+      <ion-row class="ion-no-margin ion-no-padding">
+        <ion-col class="ion-no-margin ion-no-padding">
+          <ion-button class="btn_class btn-margin" (click)="onLogin(loginForm)" type="submit" expand="block" [disabled]="isLogin">
+            <span *ngIf="!isLogin"> {{'Sign up' | translate}}</span>
+            <ion-spinner name="circles" *ngIf="isLogin"></ion-spinner>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+  
+    </form>
+    <p class="createAcc" (click)="back()">Already have an account?
+      <span class="registerTag">Login</span>
+    </p>
+  </ion-card-content>
+  </ion-card>
+  </ion-content>
