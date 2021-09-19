@@ -7,10 +7,10 @@
         <!-- <ion-label class="support_lbl">Support</ion-label> -->
       </div>
       <ion-buttons slot="end">
-        <ion-button (click)="chat()" color="danger">
+        <!-- <ion-button (click)="chat()" color="danger">
           <ion-icon slot="end" name="chatbox-ellipses-outline"></ion-icon>
           {{'Support' | translate}}
-        </ion-button>
+        </ion-button> -->
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
@@ -87,10 +87,10 @@
       <ion-label class="head_gray">{{'Deliver to' | translate}}</ion-label>
       <ion-label class="small_lbl">{{deliveryAddress}}</ion-label>
   
-      <div class="line_div"></div>
+      <!-- <div class="line_div"></div> -->
   
-      <ion-label class="red_lbl" *ngIf="status =='created' ||status =='ongoing' || status =='accepted' " (click)="call()">
-        {{'Call' | translate}} {{restName}}</ion-label>
+      <!-- <ion-label class="red_lbl" *ngIf="status =='created' ||status =='ongoing' || status =='accepted' " (click)="call()">
+        {{'Call' | translate}} {{restName}}</ion-label> -->
   
   
     </div>
