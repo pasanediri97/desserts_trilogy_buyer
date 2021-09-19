@@ -99,4 +99,13 @@ export class AccountPage implements OnInit {
   goToEditProfile() {
     this.router.navigate(['/edit-profile']);
   }
+
+  goToAddReview() {
+    const navData: NavigationExtras = {
+      queryParams: {
+        id: "uoZfuvtoEyVqMsHeo9pOe5fhzMk2"
+      }
+    };
+    this.router.navigate(['/add-review'], navData);
+  }
 }

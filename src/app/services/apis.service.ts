@@ -369,5 +369,20 @@ export class ApisService {
       });
     });
   }
+
+  public getVenues(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('venue').get().subscribe((venue) => {
+        let data = venue.docs.map(element => {
+          let item = element.data();
+          item.id = element.id;
+          return item;
+        });
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
 }
 
