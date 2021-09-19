@@ -325,5 +325,29 @@ export class ApisService {
       });
     });
   }
+
+  public addReview(param): Promise<any> {
+    param.vid = this.db.collection('venue').doc(param.vid);
+    param.uid = this.db.collection('users').doc(param.uid);
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('reviews').doc(Math.random().toString()).set(param).then((data) => {
+        resolve(data);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  public updateVenue(informations: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('venue').doc(informations.uid).update(informations).then((data) => {
+        resolve(data);
+      }, error => {
+        reject(error);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
 }
 

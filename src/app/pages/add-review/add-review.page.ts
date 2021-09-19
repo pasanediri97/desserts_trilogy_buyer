@@ -65,7 +65,53 @@ export class AddReviewPage implements OnInit {
   onChange(val) {
     console.log(val);
   }
- 
+  addReview() {
+    const myRate = (this.ratting * this.rate);
+    let totalRatting = Math.round((this.totalRatting * 5) / myRate);
+    console.log('total', totalRatting);
+    if (!totalRatting) {
+      totalRatting = this.rate;
+    }
+    console.log(totalRatting);
+    const review = {
+      id: localStorage.getItem('uid'),
+      descriptions: this.descriptions,
+      rate: this.rate,
+      cover: this.coverImage,
+      restId: this.id,
+      vid: this.id,
+      uid: localStorage.getItem('uid')
+    };
+    this.util.show();
+    console.log('review', review);
+    this.api.addReview(review).then((data) => {
+      const restParam = {
+        ratting: this.ratting + 1,
+        totalRatting: totalRatting,
+        uid: this.id
+      };
+      console.log('restParam', restParam);
+      this.api.updateVenue(restParam).then((newUpdate) => {
+        console.log(newUpdate);
+        this.util.hide();
+        this.util.showToast(this.util.translate('Review added succesfully'), 'success', 'bottom');
+        this.util.publishReview('hello');
+        this.navCtrl.navigateRoot(['/tabs/tab4']);
+      }, error => {
+        console.log('err', error);
+        this.util.hide();
+      }).catch(error => {
+        this.util.hide();
+        console.log(error);
+      });
+    }, error => {
+      console.log('err', error);
+      this.util.hide();
+    }).catch(error => {
+      this.util.hide();
+      console.log(error);
+    });
+  }
 
   async openCamera() {
     const actionSheet = await this.actionSheetController.create({
