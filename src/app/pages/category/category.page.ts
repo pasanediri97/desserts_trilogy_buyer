@@ -274,20 +274,45 @@ export class CategoryPage implements OnInit {
     this.foods = this.dummyFoods;
   };
 
- add(index) {
-    console.log("added"); 
-          const vid = localStorage.getItem("vid");
-          if (vid && vid !== this.id) {
-            this.presentAlertConfirm();
-            return false;
-          } 
-          if (this.foods[index].variations && this.foods[index].variations.length) {
+//  add(index) {
+//     console.log("added"); 
+//           const vid = localStorage.getItem("vid");
+//           if (vid && vid !== this.id) {
+//             this.presentAlertConfirm();
+//             return false;
+//           } 
+//           if (this.foods[index].variations && this.foods[index].variations.length) {
+//           console.log('open modal');
+//           this.openVariations(index);
+//         } else {
+//           this.foods[index].quantiy = 1;
+//           this.calculate(); 
+//         }
+//   }
+
+  add(index) {
+    this.api.checkAuth().then((user) => {
+      if (user) {
+        const vid = localStorage.getItem('vid');
+        if (vid && vid !== this.id) {
+          this.presentAlertConfirm();
+          return false;
+        }
+        if (this.foods[index].variations && this.foods[index].variations.length) {
           console.log('open modal');
           this.openVariations(index);
         } else {
           this.foods[index].quantiy = 1;
-          this.calculate(); 
+          this.calculate();
         }
+      } else {
+        this.router.navigate(['login']);
+      }
+    }).catch(error => {
+      console.log(error);
+    });
+
+
   }
 
   indetails(index){

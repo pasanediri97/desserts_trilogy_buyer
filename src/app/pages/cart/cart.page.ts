@@ -68,32 +68,81 @@ export class CartPage implements OnInit {
     });
   }
 
-  async validate() {
+  // async validate() {
  
-        const id = await localStorage.getItem('vid');
-        console.log('id', id);
-        if (id) {
-          this.vid = id;
-          this.getVenueDetails(); 
-          const cart = localStorage.getItem('userCart');
-          try {
-            if (cart && cart !== 'null' && cart !== undefined && cart !== 'undefined') {
-              this.cart = JSON.parse(localStorage.getItem('userCart'));
-              this.calculate();
+  //       const id = await localStorage.getItem('vid');
+  //       console.log('id', id);
+  //       if (id) {
+  //         this.vid = id;
+  //         this.getVenueDetails(); 
+  //         const cart = localStorage.getItem('userCart');
+  //         try {
+  //           if (cart && cart !== 'null' && cart !== undefined && cart !== 'undefined') {
+  //             this.cart = JSON.parse(localStorage.getItem('userCart'));
+  //             this.calculate();
+  //           } else {
+  //             this.cart = [];
+  //           }
+  //         } catch (error) {
+  //           console.log(error);
+  //           this.cart = [];
+  //         } 
+  //       } else {
+  //         this.haveItems = false;
+  //         this.chMod.detectChanges();
+  //       }
+  //       this.chMod.detectChanges();
+  //       return true;
+  //     } 
+      
+      validate() {
+
+        this.api.checkAuth().then(async (user) => {
+          if (user) {
+            const id = await localStorage.getItem('vid');
+            console.log('id', id);
+            if (id) {
+              this.vid = id;
+              this.getVenueDetails();
+              // const foods = await localStorage.getItem('foods');
+              // if (foods) {
+              //   this.foods = await JSON.parse(foods);
+              //   let recheck = await this.foods.filter(x => x.quantiy > 0);
+              //   console.log('vid', this.vid);
+              //   console.log('foods', this.foods);
+              //   if (this.vid && this.foods && recheck.length > 0) {
+              //     this.haveItems = true;
+              //     this.calculate();
+              //     this.chMod.detectChanges();
+              //   }
+              // }
+              const cart = localStorage.getItem('userCart');
+              try {
+                if (cart && cart !== 'null' && cart !== undefined && cart !== 'undefined') {
+                  this.cart = JSON.parse(localStorage.getItem('userCart'));
+                  this.calculate();
+                } else {
+                  this.cart = [];
+                }
+              } catch (error) {
+                console.log(error);
+                this.cart = [];
+              }
+    
+              console.log('========================>', this.cart);
             } else {
-              this.cart = [];
+              this.haveItems = false;
+              this.chMod.detectChanges();
             }
-          } catch (error) {
-            console.log(error);
-            this.cart = [];
-          } 
-        } else {
-          this.haveItems = false;
-          this.chMod.detectChanges();
-        }
-        this.chMod.detectChanges();
-        return true;
-      }   
+            this.chMod.detectChanges();
+            return true;
+          } else {
+            this.router.navigate(['login']);
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+      }
 
   ionViewWillEnter() {
     this.validate();
