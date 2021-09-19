@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button mode="md"></ion-back-button>
+      </ion-buttons>
+      <!-- <ion-title>{{'Forgot Password?' | translate}}</ion-title> -->
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+    <div class="login-logo">
+      <img src="assets/icon.png" class="logo_icon" alt="yoga">
+      <p class="login-name">Forgot Password?</p>
+    </div>
+    <ion-card>
+    <ion-card-content>
+    <form #loginForm="ngForm" novalidate>
+      <p class="subTitle">Enter your registered email address below to receive password reset instructions.</p>
+      <ion-list lines="none">
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="login.email" placeholder="Email" name="email"
+            #email="ngModel" spellcheck="false" autocapitalize="off" required>
+          </ion-input>
+        </ion-item>
+        <ion-text color="danger">
+          <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
+            Email is required
+          </p>
+        </ion-text>
+  
+        <ion-row class="ion-no-margin ion-no-padding" style="margin-top: 20px;">
+          <ion-col class="ion-no-margin ion-no-padding">
+            <ion-button class="btn_class" (click)="onLogin(loginForm)" type="submit" expand="block">
+              Send Link
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </form>
+  </ion-card-content>
+</ion-card>
+  </ion-content>
