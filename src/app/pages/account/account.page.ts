@@ -39,7 +39,14 @@ export class AccountPage implements OnInit {
     });
   }
 
- 
+  goToAddress() {
+    const navData: NavigationExtras = {
+      queryParams: {
+        from: 'accont'
+      }
+    };
+    this.router.navigate(['choose-address'], navData);
+  }
 
   ionViewWillEnter() {
     this.validate();
