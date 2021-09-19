@@ -316,6 +316,14 @@ export class ApisService {
     return this.fireAuth.auth.signOut();
   }
 
-  
+  public getMyProfile(id): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('users').doc(id).get().subscribe((users: any) => {
+        resolve(users.data());
+      }, error => {
+        reject(error);
+      });
+    });
+  }
 }
 
