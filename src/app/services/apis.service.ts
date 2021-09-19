@@ -409,5 +409,17 @@ export class ApisService {
         });
     });
   }
+
+  public resetPassword(email: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.fireAuth.auth.sendPasswordResetEmail(email)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(`reset failed ${err}`);
+        });
+    });
+  }
 }
 
