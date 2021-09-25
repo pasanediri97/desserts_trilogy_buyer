@@ -97,7 +97,7 @@ export class VariationsPage implements OnInit {
   }
   addToCart() {
     /*
-      new
+      new 
       sameChoice
       newCustom
       remove
@@ -123,6 +123,7 @@ export class VariationsPage implements OnInit {
     if (this.newItem) {
       role = 'newCustom';
     }
+    console.log(role)
     this.modalController.dismiss(this.cart, role);
   }
 
