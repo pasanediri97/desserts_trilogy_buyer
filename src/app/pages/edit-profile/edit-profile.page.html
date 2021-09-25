@@ -22,7 +22,7 @@
         <div class="form_div">
           <ion-item class="ion-no-padding">
             <ion-label position="floating">{{'Name' | translate}}</ion-label>
-            <ion-input type="text" [(ngModel)]="name"></ion-input>
+            <ion-input type="text" [(ngModel)]="name" (keypress)="keyPressalphabets($event)"></ion-input>
           </ion-item>
   
           <ion-item class="ion-no-padding">
@@ -32,7 +32,7 @@
   
           <ion-item class="ion-no-padding">
             <ion-label position="floating">{{'Phone Number' | translate}}</ion-label>
-            <ion-input type="number" [(ngModel)]="phone"></ion-input>
+            <ion-input type="tel" [(ngModel)]="phone" maxlength="10" inputmode="numeric"  (keypress)="numericOnly($event)"></ion-input>
           </ion-item>
   
           <ion-item class="ion-no-padding">
