@@ -39,7 +39,7 @@
         <div class="card_div" *ngFor="let item of myOrders" (click)="goToHistoryDetail(item.id)">
   
           <div class="resto_detail">
-            <div class="back_image" [style.backgroundImage]="'url('+item.vid.cover+')'"></div>
+            <div class="back_image" [style.backgroundImage]="'url(assets/icon.png)'"></div>
             <div style="margin-left: 20px;">
               <ion-label class="res_name">{{item.vid.name}}</ion-label>
               <ion-label class="res_location">
