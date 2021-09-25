@@ -37,6 +37,7 @@ export class CategoryPage implements OnInit {
   cart: any[] = [];
   showSearch: boolean = false;
   profile: any;
+  searchText:string="";
 
   constructor( 
     private api: ApisService,
@@ -50,6 +51,7 @@ export class CategoryPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.id = "uoZfuvtoEyVqMsHeo9pOe5fhzMk2"
     // this.route.queryParams.subscribe(data => {
     //   console.log('data=>', data);
@@ -59,8 +61,11 @@ export class CategoryPage implements OnInit {
     //   }
     // });
   }
-
+ 
   ionViewWillEnter() {
+    this.searchText = ""
+    this.showSearch = false;
+    this.resetChanges();
     this.getProfile();
   }
 
@@ -407,6 +412,11 @@ export class CategoryPage implements OnInit {
     modal.onDidDismiss().then((data) => {
       console.log('from variations', data.data);
       console.log('data.data', data.role);
+
+      this.searchText = ""
+      this.showSearch = false;
+      this.resetChanges();
+
       let isValid = false;
       if (data.role === 'new') {
         this.foods[index].quantiy = 1;

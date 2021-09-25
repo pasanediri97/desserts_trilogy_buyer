@@ -14,6 +14,7 @@
       <ion-label class="cusine">{{getCusine(cusine)}}</ion-label> -->
       <div class="div_searchbar">
         <ion-searchbar
+        [(ngModel)]= "searchText"
           animated="true"
           mode="ios"
           [placeholder]="('Search') || '&nbsp;'"
