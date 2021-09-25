@@ -24,6 +24,18 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
   }
+
+  keyPressalphabets(event) {
+
+    var inp = String.fromCharCode(event.keyCode);
+
+    if (/[a-zA-Z]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
   onLogin(form: NgForm) {
     console.log('form', form);
     this.submitted = true;

@@ -158,12 +158,13 @@ export class HistoryDetailPage implements OnInit {
 
   changeStatus() {
     Swal.fire({
-      title: this.util.translate('Are you sure?'),
-      text: this.util.translate('To Cancel this order'),
+      title: 'Alert',
+      text:'Are you sure want to cancel this order?',
       showCancelButton: true,
-      cancelButtonText: this.util.translate('Cancel'),
+      cancelButtonText:'No',
       showConfirmButton: true,
-      confirmButtonText: this.util.translate('Yes'),
+      confirmButtonText:'Yes',
+      confirmButtonColor: '#9e0059',
       backdrop: false,
       background: 'white'
     }).then((data) => {

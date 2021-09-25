@@ -36,6 +36,26 @@ export class EditProfilePage implements OnInit {
   ) {
 
   }
+
+  keyPressalphabets(event) {
+    
+    var inp = String.fromCharCode(event.keyCode);
+
+    if (/[a-zA-Z]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      // this.util.errorToast(this.util.translate('Something'));
+      return false;
+    }
+  }
+
+  numericOnly(event): boolean {
+    let pattern = /^([0-9])$/;
+    let result = pattern.test(event.key);
+    return result;
+ }
+
   getProfile() {
     this.util.show();
     this.api.getProfile(localStorage.getItem('uid')).then((data: any) => {
