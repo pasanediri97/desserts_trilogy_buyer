@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApisService } from 'src/app/services/apis.service';
 import { Router, NavigationExtras } from "@angular/router";
 import { UtilService } from 'src/app/services/util.service';
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
@@ -32,11 +33,28 @@ export class AccountPage implements OnInit {
   ngOnInit() {
   }
   logout() {
-    this.api.logout().then((data) => {
-      this.router.navigate(['tabs']);
-    }).catch(error => {
-      console.log(error);
-    });
+    console.log('Logout alert');
+    swal.fire({
+      title: 'Alert',
+      text: "Do you want to leave this app?",
+      // icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#9e0059',
+      reverseButtons: true
+        }).then(data => {
+          if (data.value) {
+            this.api.logout().then((data) => {
+            
+              this.router.navigate(['login']);
+            }).catch(error => {
+              console.log(error);
+            });
+          }
+
+        });
+    
   }
 
   goToAddress() {
