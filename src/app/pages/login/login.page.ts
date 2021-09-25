@@ -71,6 +71,7 @@ export class LoginPage implements OnInit {
               showCancelButton: true,
               confirmButtonText: this.util.translate('Need Help?'),
               backdrop: false,
+              confirmButtonColor: '#9e0059',
               background: 'white'
             }).then(data => {
               if (data && data.value) {

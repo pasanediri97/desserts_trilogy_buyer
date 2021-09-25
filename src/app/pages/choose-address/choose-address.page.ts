@@ -111,6 +111,7 @@ export class ChooseAddressPage implements OnInit {
             confirmButtonText: this.util.translate('Yes'),
             backdrop: false,
             background: 'white',
+            confirmButtonColor: '#9e0059',
             showCancelButton: true,
             showConfirmButton: true,
             cancelButtonText: this.util.translate('cancel')

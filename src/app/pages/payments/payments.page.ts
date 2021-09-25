@@ -177,6 +177,7 @@ export class PaymentsPage implements OnInit {
       showCancelButton: true,
       backdrop: false,
       background: 'white',
+      confirmButtonColor: '#9e0059',
       confirmButtonText: this.util.translate('Yes'),
       cancelButtonText: this.util.translate('cancel'),
     }).then((data) => {
