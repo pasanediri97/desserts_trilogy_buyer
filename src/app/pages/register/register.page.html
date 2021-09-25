@@ -13,7 +13,7 @@
       <ion-list lines="none">
         <ion-item lines="none">
           <ion-input [(ngModel)]="login.full_name" type="text" placeholder="Name"
-            name="full_name" #full_name="ngModel" spellcheck="false" autocapitalize="off" required>
+            name="full_name" #full_name="ngModel" spellcheck="false" autocapitalize="off" (keypress)="keyPressalphabets($event)" required>
           </ion-input>
         </ion-item>
         <ion-text color="danger">
