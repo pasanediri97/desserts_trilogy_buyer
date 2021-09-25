@@ -1,5 +1,5 @@
 import { VariationsPage } from './../variations/variations.page';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { AlertController, NavController, PopoverController, ModalController} from '@ionic/angular';
 import { ApisService } from 'src/app/services/apis.service';
@@ -38,6 +38,7 @@ export class CategoryPage implements OnInit {
   showSearch: boolean = false;
   profile: any;
   searchText:string="";
+  haveItems: boolean = false;
 
   constructor( 
     private api: ApisService,
@@ -48,6 +49,7 @@ export class CategoryPage implements OnInit {
     private alertController: AlertController,
     private modalCtrl: ModalController,
     private apis: ApisService,
+    private chMod: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -67,6 +69,45 @@ export class CategoryPage implements OnInit {
     this.showSearch = false;
     this.resetChanges();
     this.getProfile();
+    this.validate()
+  } 
+
+ 
+  validate() {
+
+    this.api.checkAuth().then(async (user) => {
+      if (user) {
+        const id = await localStorage.getItem('vid');
+        console.log('id', id);
+        if (id) {  
+          const cart = localStorage.getItem('userCart');
+           
+          try {
+            if (cart && cart !== 'null' && cart !== undefined && cart !== 'undefined') {
+              this.cart = JSON.parse(localStorage.getItem('userCart'));
+              console.log(this.cart)
+              this.calculate2();
+            } else {
+              this.cart = [];
+            } 
+          } catch (error) {
+            console.log(error);
+            this.cart = [];
+          }
+
+          console.log('========================>', this.cart);
+        } else {
+          this.haveItems = false;
+          this.chMod.detectChanges();
+        }
+        this.chMod.detectChanges();
+        return true;
+      } else {
+        this.router.navigate(['login']);
+      }
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   getProfile() {
@@ -355,6 +396,7 @@ export class CategoryPage implements OnInit {
       }
       this.cart.push(element);
     });
+    console.log(this.cart)
     localStorage.removeItem("userCart"); 
     localStorage.setItem("userCart", JSON.stringify(this.cart));
     this.totalPrice = parseFloat(this.totalPrice).toFixed(2); 
@@ -362,6 +404,79 @@ export class CategoryPage implements OnInit {
       this.totalItem = 0;
       this.totalPrice = 0;
     }
+    this.calculate2()
+  }
+
+  async calculate2() { 
+    let item = this.cart.filter(x => x.quantiy > 0);
+    this.cart.forEach(function (element, i) { 
+      console.log(element)
+      if (element.quantiy === 0) {
+        element.selectedItem = [];
+      }
+    }); 
+ 
+    this.totalPrice = 0;
+    this.totalItem = 0;
+    this.cart = []; 
+    item.forEach(element => {
+      this.totalItem = this.totalItem + element.quantiy; 
+      if (element && element.selectedItem && element.selectedItem.length > 0) {
+        let subPrice = 0;
+        element.selectedItem.forEach(subItems => {
+          subItems.item.forEach(realsItems => {
+            subPrice = subPrice + (realsItems.value);
+          });
+          subPrice = subPrice * subItems.total;
+        });
+        this.totalPrice = this.totalPrice + subPrice;
+      } else {
+        this.totalPrice = this.totalPrice + (parseFloat(element.price) * parseInt(element.quantiy));
+      }
+      this.cart.push(element);
+    });
+    console.log(this.cart)
+    localStorage.removeItem('userCart'); 
+    localStorage.setItem('userCart', JSON.stringify(this.cart));
+    this.totalPrice = parseFloat(this.totalPrice).toFixed(2); 
+ 
+    if (this.totalItem === 0) {
+      this.totalItem = 0;
+      this.totalPrice = 0;
+    } 
+ 
+    for (let i = 0; i < this.dummyFoods.length; i++) { 
+      for (let j = 0; j < this.cart.length; j++) { 
+        if (this.dummyFoods[i].id == this.cart[j].id){ 
+          if (this.dummyFoods[i].quantiy !== 0) {
+            console.log(this.cart[j].selectedItem.length )
+            if (this.cart[j].selectedItem.length > 0){
+              for (let x = 0; x < this.cart[j].selectedItem.length; x++) { 
+              this.dummyFoods[i].quantiy =+ this.cart[j].selectedItem[x].total 
+              }
+            }else{
+              this.dummyFoods[i].quantiy = this.cart[j].quantiy
+            }
+
+          }else{
+            this.dummyFoods[i].quantiy = 0
+          }
+        }
+      }
+    }
+
+  //   this.dummyFoods.forEach(function (element1, i) { 
+  //     console.log(element1)
+  //   this.cart.forEach(function (element2, j) {  
+  //  if (element1.uid == element2.uid){ 
+  //    console.log('came')
+  //   this.foods[i].quantiy = element2.quantiy
+  //  }
+  //     }); 
+  //   }); 
+
+
+   // this.calculate();
   }
 
   async presentAlertConfirm() {

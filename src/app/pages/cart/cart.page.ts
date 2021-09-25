@@ -103,19 +103,7 @@ export class CartPage implements OnInit {
             console.log('id', id);
             if (id) {
               this.vid = id;
-              this.getVenueDetails();
-              // const foods = await localStorage.getItem('foods');
-              // if (foods) {
-              //   this.foods = await JSON.parse(foods);
-              //   let recheck = await this.foods.filter(x => x.quantiy > 0);
-              //   console.log('vid', this.vid);
-              //   console.log('foods', this.foods);
-              //   if (this.vid && this.foods && recheck.length > 0) {
-              //     this.haveItems = true;
-              //     this.calculate();
-              //     this.chMod.detectChanges();
-              //   }
-              // }
+              this.getVenueDetails(); 
               const cart = localStorage.getItem('userCart');
               try {
                 if (cart && cart !== 'null' && cart !== undefined && cart !== 'undefined') {
@@ -151,6 +139,7 @@ export class CartPage implements OnInit {
     this.navCtrl.navigateRoot(['tabs/tab1']);
   }
   addQ(index) {
+    console.log('addded q')
     this.cart[index].quantiy = this.cart[index].quantiy + 1;
     this.calculate();
   }
@@ -215,47 +204,17 @@ export class CartPage implements OnInit {
       }
       this.cart.push(element);
     });
+    console.log(this.cart)
     localStorage.removeItem('userCart'); 
     localStorage.setItem('userCart', JSON.stringify(this.cart));
     this.totalPrice = parseFloat(this.totalPrice).toFixed(2); 
 
     const tax = (parseFloat(this.totalPrice) * 21) / 100;
     this.serviceTax = tax.toFixed(2);
-    console.log('tax->', this.serviceTax);
+    console.log('tax->', this.serviceTax); 
     this.deliveryCharge = 5;
     this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
     this.grandTotal = this.grandTotal.toFixed(2);
-    if (this.coupon && this.coupon.code && this.totalPrice >= this.coupon.min) {
-      if (this.coupon.type === '%') {
-        console.log('per');
-        function percentage(num, per) {
-          return (num / 100) * per;
-        }
-        const totalPrice = percentage(parseFloat(this.totalPrice).toFixed(2), this.coupon.discout); 
-        this.dicount = totalPrice.toFixed(2);
-        this.totalPrice = parseFloat(this.totalPrice) - totalPrice; 
-        this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-        const tax = (parseFloat(this.totalPrice) * 21) / 100;
-        this.serviceTax = tax.toFixed(2); 
-        this.deliveryCharge = 5;
-        this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
-        this.grandTotal = this.grandTotal.toFixed(2);
-      } else { 
-        const totalPrice = parseFloat(this.totalPrice) - this.coupon.discout; 
-        this.dicount = this.coupon.discout;
-        this.totalPrice = totalPrice; 
-        this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-        const tax = (parseFloat(this.totalPrice) * 21) / 100;
-        this.serviceTax = tax.toFixed(2); 
-        this.deliveryCharge = 5;
-        this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
-        this.grandTotal = this.grandTotal.toFixed(2);
-      }
-    } else {
-      console.log('not satisfied');
-      this.coupon = null;
-      localStorage.removeItem('coupon');
-    }
     console.log('grand totla', this.grandTotal);
     if (this.totalItem === 0) {
       const lng = localStorage.getItem('language');
