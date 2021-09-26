@@ -37,7 +37,7 @@ export class AddNewAddressPage implements OnInit {
     private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe(data => {
-      console.log(data);
+      console.log('data===>',data);
       if (data && data.from) {
         this.from = 'edit';
         const info = JSON.parse(data.data);
@@ -103,8 +103,10 @@ export class AddNewAddressPage implements OnInit {
           }
         });
       }
-    }, error => { 
-    }).catch(error => { 
+    }, error => {
+      // console.log('errir', error);
+    }).catch(error => {
+      // console.log('error', error);
     });
 
   }
@@ -144,7 +146,7 @@ export class AddNewAddressPage implements OnInit {
     const geocoder = new google.maps.Geocoder();
     const location = new google.maps.LatLng(lat, lng);
     geocoder.geocode({ 'location': location }, (results, status) => {
-      console.log(results);
+      console.log(results[0].formatted_address);
       this.address = results[0].formatted_address;
       this.lat = lat;
       this.lng = lng;
@@ -249,7 +251,7 @@ export class AddNewAddressPage implements OnInit {
     }
     const param = {
       id: this.id,
-      uid: "uoZfuvtoEyVqMsHeo9pOe5fhzMk2",
+      uid: localStorage.getItem('uid'),
       address: this.address,
       lat: this.lat,
       lng: this.lng,
@@ -258,7 +260,7 @@ export class AddNewAddressPage implements OnInit {
       landmark: this.landmark
     };
     this.util.show();
-    this.api.updateAddress("uoZfuvtoEyVqMsHeo9pOe5fhzMk2", this.id, param).then((data) => {
+    this.api.updateAddress(localStorage.getItem('uid'), this.id, param).then((data) => {
       this.util.hide();
       this.util.showToast('Address updated', 'success', 'bottom');
       this.navCtrl.back();
