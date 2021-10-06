@@ -20,7 +20,7 @@ export const environment = {
     restKey: ''
   },
   stripe: {
-    sk: ''
+    sk: 'sk_test_51J6CyDHa0A8STKn20QkkACWPt8NsLj7GIy08hep5ysVS1UBYd58P9PrAnM1awTBurJTqTowWwM2MFNoYBtwG6tOt006RQWjwIi'
   },
   paypal: {
     sandbox: '',

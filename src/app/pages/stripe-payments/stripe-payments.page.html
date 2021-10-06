@@ -3,7 +3,7 @@
       <ion-buttons slot="start">
         <ion-back-button mode="md"></ion-back-button>
       </ion-buttons>
-      <ion-title>{{'Pay with' | translate}} PayHere</ion-title>
+      <ion-title>Stripe</ion-title>
       <ion-buttons slot="end">
         <ion-button (click)="onAdd()">
           <ion-icon slot="end" name="add"></ion-icon>
@@ -26,7 +26,7 @@
           <ion-label>XXXX{{card.last4}} <br> Expiry {{card.exp_month}} / {{card.exp_year}}</ion-label>
         </ion-item>
       </ion-radio-group>
-      <ion-button expand="block" *ngIf="cards?.length" class="btn_addcard" >{{'Payment' | translate}}
+      <ion-button expand="block" *ngIf="cards?.length" class="btn_addcard" (click)="payment()">{{'Payment' | translate}}
         {{getCurrency()}}
         {{grandTotal}}
       </ion-button>
