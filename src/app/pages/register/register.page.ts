@@ -29,7 +29,7 @@ export class RegisterPage implements OnInit {
 
     var inp = String.fromCharCode(event.keyCode);
 
-    if (/[a-zA-Z]/.test(inp)) {
+    if (/[a-zA-Z0-9]/.test(inp)) {
       return true;
     } else {
       event.preventDefault();

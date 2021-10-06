@@ -19,7 +19,7 @@ export class EditProfilePage implements OnInit {
   profilePic: any = 'assets/imgs/user.jpg';
   phone: any = '';
   descriptions: any = '';
-  handle: any = '';
+  handle: any = 'user';
 
   task: AngularFireUploadTask;
   ref: AngularFireStorageReference;
@@ -41,7 +41,7 @@ export class EditProfilePage implements OnInit {
     
     var inp = String.fromCharCode(event.keyCode);
 
-    if (/[a-zA-Z]/.test(inp)) {
+    if (/[a-zA-Z0-9]/.test(inp)) {
       return true;
     } else {
       event.preventDefault();
